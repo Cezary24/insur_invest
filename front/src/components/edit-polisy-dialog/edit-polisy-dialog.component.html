@@ -1,42 +1,45 @@
-<h2 mat-dialog-title>Edytuj Dane Polisy</h2>
+<div class="dialog-form-container"> 
+  <h2 mat-dialog-title>Edytuj Dane Polisy</h2>
 
-<mat-dialog-content>
-  <form [formGroup]="editForm">
-    <mat-form-field appearance="fill">
-      <mat-label>PESEL</mat-label>
-      <input matInput formControlName="pesel" />
-    </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Imię</mat-label>
-      <input matInput formControlName="firstName" />
-    </mat-form-field>
+  <mat-dialog-content>
+    <form [formGroup]="editForm" class="dialog-form">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>PESEL</mat-label>
+        <input matInput formControlName="pesel" placeholder="Podaj PESEL" />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Nazwisko</mat-label>
-      <input matInput formControlName="lastName" />
-    </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Imię</mat-label>
+        <input matInput formControlName="insuredFirstName" placeholder="Podaj imię" />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Wartość polisy</mat-label>
-      <input matInput type="number" formControlName="policyValue" />
-    </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Nazwisko</mat-label>
+        <input matInput formControlName="insuredLastName" placeholder="Podaj nazwisko" />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Data rozpoczęcia</mat-label>
-      <input matInput type="date" formControlName="startDate" />
-    </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Wysokość składki</mat-label>
+        <input matInput type="number" formControlName="amount" placeholder="Podaj wysokość składki" />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Data zakończenia</mat-label>
-      <input matInput type="date" formControlName="endDate" />
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Towarzystwo ubezpieczeniowe</mat-label>
+        <input matInput formControlName="insuranceCompany" placeholder="Podaj nazwę towarzystwa" />
+      </mat-form-field>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Anuluj</button>
-  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="editForm.invalid">
-    Zapisz
-  </button>
-</mat-dialog-actions>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Kategoria polisy</mat-label>
+        <input matInput formControlName="policyCategory" placeholder="Podaj kategorię polisy" />
+      </mat-form-field>
+    </form>
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="onCancel()">Anuluj</button>
+      <button mat-raised-button color="primary" (click)="onSave()" [disabled]="editForm.invalid">
+        Zapisz
+      </button>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+</div>
+

@@ -1,83 +1,157 @@
+
 .polis-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 800px;
+  margin: 24px auto;
+  padding: 16px;
+  background-color: #ffffff;
   border-radius: 8px;
-  
-  .full-width {
-    width: 100%;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.polis-container h2 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* File upload styling */
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-upload-container button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.file-upload-container .selected-files {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.file-upload-container .selected-files ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.file-upload-container .selected-files ul li {
+  margin: 4px 0;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Form actions */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* Policies table styling */
+.policies-table {
+  margin-top: 24px;
+}
+
+.policies-table h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.policies-table mat-table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.policies-table mat-header-cell {
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  background-color: #f5f5f5;
+  padding: 8px;
+}
+
+.policies-table mat-cell {
+  padding: 8px;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.policies-table mat-cell button {
+  font-size: 0.875rem;
+}
+
+/* Button styles */
+button[mat-raised-button] {
+  background-color: #1976d2;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #1565c0;
+}
+
+button[mat-raised-button]:disabled {
+  background-color: #bdbdbd;
+  color: white;
+}
+
+button[mat-button] {
+  color: #1976d2;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+button[mat-button]:hover {
+  background-color: rgba(25, 118, 210, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .polis-container {
+    padding: 12px;
   }
-  
+
   .file-upload-container {
-    margin: 20px 0;
-    
-    .selected-file {
-      margin-left: 10px;
-      color: rgba(0, 0, 0, 0.7);
-    }
-  }
-  
-  .form-actions {
-    margin: 20px 0;
-    display: flex;
-    justify-content: flex-end;
+    gap: 8px;
   }
 
-  .policy-details {
-    margin-top: 30px;
-
-    .details-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 10px;
-
-      .detail-item {
-        display: flex;
-        flex-direction: column;
-        
-        .label {
-          color: rgba(0, 0, 0, 0.6);
-          font-size: 0.9rem;
-          margin-bottom: 4px;
-        }
-        
-        .value {
-          font-size: 1.1rem;
-          font-weight: 500;
-        }
-      }
-    }
+  .file-upload-container button {
+    font-size: 0.875rem;
   }
 
-  .selected-files {
-    margin-top: 10px;
-    
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-      
-      li {
-        margin: 5px 0;
-        color: #666;
-      }
-    }
+  .file-upload-container .selected-files ul li {
+    font-size: 0.75rem;
   }
 
-  .policies-table {
-    margin-top: 30px;
+  .policies-table h3 {
+    font-size: 1.25rem;
+  }
 
-    mat-table {
-      width: 100%;
-    }
+  .policies-table mat-header-cell {
+    font-size: 0.875rem;
+  }
 
-    .mat-header-cell {
-      font-weight: bold;
-      color: rgba(0, 0, 0, 0.87);
-    }
-
-    .mat-cell {
-      padding: 8px;
-    }
+  .policies-table mat-cell {
+    font-size: 0.75rem;
   }
 }

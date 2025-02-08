@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {  MatTableModule } from '@angular/material/table';
+import {  MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EditPolisyDialogComponent } from '../edit-polisy-dialog/edit-polisy-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { PolisResponse } from '../../models/polis_response';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-polis',
@@ -28,10 +30,22 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 export class PolisComponent {
   polisForm: FormGroup;
   selectedFiles: File[] = [];
-  policiesData: any[] = [];
-  displayedColumns: string[] = ['pesel', 'firstName', 'lastName', 'policyValue', 'startDate', 'endDate', 'actions'];
+  policiesData: PolisResponse[] = [];
+  displayedColumns: string[] = [
+    'pesel', 
+    'insuredFirstName', 
+    'insuredLastName', 
+    'amount', 
+    'insuranceCompany', 
+    'policyCategory', 
+    'actions'
+  ];
+  dataSource = new MatTableDataSource<PolisResponse>([]);
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private dialog: MatDialog, private cdref:ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, 
+    private http: HttpClient, 
+    private dialog: MatDialog, 
+    private cdref:ChangeDetectorRef) {
     this.polisForm = this.fb.group({});
   }
 
@@ -44,14 +58,31 @@ export class PolisComponent {
       return;
     }
 
+    const dialogRef = this.dialog.open(SpinnerComponent, {
+      disableClose: true, 
+      panelClass: 'spinner-dialog'
+    });
+
     for (const file of this.selectedFiles) {
       try {
         const policyData = await this.processFile(file);
-        this.policiesData.push(policyData);
+        const processedJson = policyData.processed_json;
+        const response: PolisResponse = {
+          insuredFirstName: processedJson["dane ubezpieczonego"].imie,
+          insuredLastName: processedJson["dane ubezpieczonego"].nazwisko,
+          pesel: processedJson["dane ubezpieczonego"]["PESEL/REGON"],
+          amount: processedJson["wysokosc skladki"],
+          insuranceCompany: processedJson["marka towarzystwa ubezpieczeniowego"],
+          policyCategory: processedJson["kategoria polisy"]
+        };
+        
+        this.dataSource.data = [...this.dataSource.data, response];
+        console.log(this.dataSource.data);
       } catch (error) {
         console.error(`Error processing file ${file.name}:`, error);
       }
     }
+    dialogRef.close(); 
   }
 
   private async processFile(file: File): Promise<any> {
@@ -59,32 +90,23 @@ export class PolisComponent {
     formData.append('name', "nazwa");
     formData.append('file', file);
     const url = 'http://127.0.0.1:8000/polis/';
-    //return this.http.post<any>(url, formData).toPromise();
-
-    return {
-      name: "nazwa",
-      surname: "nazwisko",
-      pesel: "12345678901",
-      price: "100",
-      endDate: "2024-01-01"
-    }
+    return this.http.post<any>(url, formData).toPromise();
   }
 
 
-  onEdit(element: any): void {
+  onEdit(element: PolisResponse): void {
     const dialogRef = this.dialog.open(EditPolisyDialogComponent, {
       width: '400px',
       data: { element: element }, 
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-
-        if (result) {
-          const index = this.policiesData.findIndex(polis => polis.pesel === element.pesel);
+      if (result) {
+        const index = this.dataSource.data.findIndex(polis => polis.pesel === element.pesel);
         if (index !== -1) {
-          this.policiesData[index] = { ...this.policiesData[index], ...result };
+          this.dataSource.data[index] = { ...this.dataSource.data[index], ...result };
+          this.dataSource.data = [...this.dataSource.data];
         }
-        this.cdref.detectChanges();
       }
     });
   }

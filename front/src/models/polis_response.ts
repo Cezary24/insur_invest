@@ -1,8 +1,10 @@
 export interface PolisResponse {
- name: string;
- surname: string;
- pesel: string;
- price: string;
- endDate: string;
+    insuredFirstName: string;
+    insuredLastName: string;
+    pesel: string;
+    amount: string;
+    insuranceCompany: string;
+    policyCategory: string;
 }
+
 
