@@ -1,0 +1,51 @@
+.polis-container {
+  padding: 20px;
+  margin: 20px;
+  border-radius: 8px;
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .file-upload-container {
+    margin: 20px 0;
+    
+    .selected-file {
+      margin-left: 10px;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  }
+  
+  .form-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .policy-details {
+    margin-top: 30px;
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 10px;
+
+      .detail-item {
+        display: flex;
+        flex-direction: column;
+        
+        .label {
+          color: rgba(0, 0, 0, 0.6);
+          font-size: 0.9rem;
+          margin-bottom: 4px;
+        }
+        
+        .value {
+          font-size: 1.1rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

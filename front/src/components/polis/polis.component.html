@@ -1,0 +1,62 @@
+<div class="polis-container mat-elevation-z2">
+  <h2 class="mat-h2">Wczytaj polisę</h2>
+  
+  <form [formGroup]="polisForm" >
+
+    <div class="file-upload-container">
+      <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
+        <mat-icon>upload_file</mat-icon>
+        Wybierz plik PDF
+      </button>
+      <input #fileInput type="file" accept="application/pdf" (change)="onFileSelected($event)" style="display: none">
+      @if(selectedFileName){
+        <span class="selected-file" >
+            Wybrany plik: {{selectedFileName}}
+          </span>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!selectedFile" (click)="onSubmit()">
+        Wczytaj dane
+      </button>
+    </div>
+  </form>
+
+@if(policyData){
+  <div class="policy-details">
+    <h3 class="mat-h3">Dane z polisy:</h3>
+    <mat-card>
+
+      <mat-card-content>
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="label">PESEL:</span>
+            <span class="value">{{policyData.pesel}}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Imię:</span>
+            <span class="value">{{policyData.firstName}}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Nazwisko:</span>
+            <span class="value">{{policyData.lastName}}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Wartość polisy:</span>
+            <span class="value">{{policyData.policyValue}}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Data rozpoczęcia:</span>
+            <span class="value">{{policyData.startDate}}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Data zakończenia:</span>
+            <span class="value">{{policyData.endDate}}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+}
+</div>
