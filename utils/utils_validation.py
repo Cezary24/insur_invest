@@ -57,8 +57,6 @@ def cast_and_validate(data):
         if not is_valid_nip(nip):
             raise ValueError(f"Invalid NIP: {nip}")
     
-    # Validate other fields if needed
-    # For example: validate dates, check for required fields, etc.
     
     return data
 
