@@ -32,6 +32,7 @@ def is_valid_date(date_str, date_format="%Y-%m-%d"):
         return datetime.strptime(date_str, date_format)
     except ValueError:
         return None
+
 def cast_and_validate(data):
     """Cast and validate fields of the data dictionary."""
     
