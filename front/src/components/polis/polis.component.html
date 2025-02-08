@@ -39,40 +39,43 @@
     <div class="policies-table">
       <h3 class="mat-h3">Dane z polis:</h3>
       <mat-table [dataSource]="policiesData" class="mat-elevation-z8">
-        <!-- PESEL Column -->
+
         <ng-container matColumnDef="pesel">
           <mat-header-cell *matHeaderCellDef> PESEL </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.pesel}} </mat-cell>
         </ng-container>
 
-        <!-- First Name Column -->
         <ng-container matColumnDef="firstName">
           <mat-header-cell *matHeaderCellDef> Imię </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
         </ng-container>
 
-        <!-- Last Name Column -->
         <ng-container matColumnDef="lastName">
           <mat-header-cell *matHeaderCellDef> Nazwisko </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
         </ng-container>
 
-        <!-- Policy Value Column -->
         <ng-container matColumnDef="policyValue">
           <mat-header-cell *matHeaderCellDef> Wartość polisy </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.policyValue}} </mat-cell>
         </ng-container>
 
-        <!-- Start Date Column -->
         <ng-container matColumnDef="startDate">
           <mat-header-cell *matHeaderCellDef> Data rozpoczęcia </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.startDate}} </mat-cell>
         </ng-container>
 
-        <!-- End Date Column -->
+
         <ng-container matColumnDef="endDate">
           <mat-header-cell *matHeaderCellDef> Data zakończenia </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.endDate}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Akcje </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button color="primary" (click)="onEdit(element)">Edytuj</button>
+          </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

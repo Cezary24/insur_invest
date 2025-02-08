@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Edytuj Dane Polisy</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="editForm">
+    <mat-form-field appearance="fill">
+      <mat-label>PESEL</mat-label>
+      <input matInput formControlName="pesel" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Imię</mat-label>
+      <input matInput formControlName="firstName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nazwisko</mat-label>
+      <input matInput formControlName="lastName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Wartość polisy</mat-label>
+      <input matInput type="number" formControlName="policyValue" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Data rozpoczęcia</mat-label>
+      <input matInput type="date" formControlName="startDate" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Data zakończenia</mat-label>
+      <input matInput type="date" formControlName="endDate" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Anuluj</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="editForm.invalid">
+    Zapisz
+  </button>
+</mat-dialog-actions>
