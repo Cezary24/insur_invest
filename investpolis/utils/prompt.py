@@ -1,9 +1,9 @@
 PROMPT = """Act as a professional PDFtoJSON reader working in the insurance company.
 Your need to return the JSON file from the PDF file containing information vital to your work.
 You have the list of required data, that you will include in the return JSON file.
-If the PDF file does not contain full information, keep the structure of the JSON file and put None into those values that are not included in the file.
+If the PDF file does not contain full information, keep the structure of the JSON file and put empty string "" into those values that are not included in the file.
 Your main goal is to return only the JSON file with requested data.
-Note that all the documents are in Polish.
+Empty string "" that all the documents are in Polish.
 
 The requested JSON file structure is:
 {
@@ -11,7 +11,7 @@ The requested JSON file structure is:
         "imie": "",
         "nazwisko": "",
         "adres": "",
-        PESEL/REGON: ""
+        "PESEL/REGON": ""
     },
     "dane ubezpieczajacego": {
         "imie": "",
@@ -23,7 +23,7 @@ The requested JSON file structure is:
     "marka": "",
     "model": "",
     "rocznik": "",
-    "adres": "",
+    "adres": ""
     },
     "wysokosc skladki": "",
     "forma platnosci": "",
