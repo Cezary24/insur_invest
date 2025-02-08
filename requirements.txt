@@ -1,9 +1,0 @@
-layoutparser
-layoutparser[layoutmodels]
-matplotlib
-torch
-transformers
-sentencepiece
-accelerate>=0.26.0
-sentence_transformers
-chromadb
