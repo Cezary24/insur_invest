@@ -1,62 +1,83 @@
 <div class="polis-container mat-elevation-z2">
-  <h2 class="mat-h2">Wczytaj polisę</h2>
+  <h2 class="mat-h2">Wczytaj polisy</h2>
   
-  <form [formGroup]="polisForm" >
-
+  <form [formGroup]="polisForm">
     <div class="file-upload-container">
       <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
         <mat-icon>upload_file</mat-icon>
-        Wybierz plik PDF
+        Wybierz pliki PDF
       </button>
-      <input #fileInput type="file" accept="application/pdf" (change)="onFileSelected($event)" style="display: none">
-      @if(selectedFileName){
-        <span class="selected-file" >
-            Wybrany plik: {{selectedFileName}}
-          </span>
+      <input #fileInput type="file" 
+             accept="application/pdf" 
+             (change)="onFilesSelected($event)" 
+             multiple
+             style="display: none">
+      @if(selectedFiles.length > 0){
+        <div class="selected-files">
+          <p>Wybrane pliki ({{selectedFiles.length}}):</p>
+          <ul>
+            @for(file of selectedFiles; track file.name){
+              <li>{{file.name}}</li>
+            }
+          </ul>
+        </div>
       }
     </div>
 
     <div class="form-actions">
-      <button mat-raised-button color="primary" type="submit" [disabled]="!selectedFile" (click)="onSubmit()">
+      <button mat-raised-button 
+              color="primary" 
+              type="submit" 
+              [disabled]="selectedFiles.length === 0" 
+              (click)="onSubmit()">
         Wczytaj dane
       </button>
     </div>
   </form>
 
-@if(policyData){
-  <div class="policy-details">
-    <h3 class="mat-h3">Dane z polisy:</h3>
-    <mat-card>
+  @if(policiesData.length > 0){
+    <div class="policies-table">
+      <h3 class="mat-h3">Dane z polis:</h3>
+      <mat-table [dataSource]="policiesData" class="mat-elevation-z8">
+        <!-- PESEL Column -->
+        <ng-container matColumnDef="pesel">
+          <mat-header-cell *matHeaderCellDef> PESEL </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.pesel}} </mat-cell>
+        </ng-container>
 
-      <mat-card-content>
-        <div class="details-grid">
-          <div class="detail-item">
-            <span class="label">PESEL:</span>
-            <span class="value">{{policyData.pesel}}</span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Imię:</span>
-            <span class="value">{{policyData.firstName}}</span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Nazwisko:</span>
-            <span class="value">{{policyData.lastName}}</span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Wartość polisy:</span>
-            <span class="value">{{policyData.policyValue}}</span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Data rozpoczęcia:</span>
-            <span class="value">{{policyData.startDate}}</span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Data zakończenia:</span>
-            <span class="value">{{policyData.endDate}}</span>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-}
+        <!-- First Name Column -->
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef> Imię </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
+        </ng-container>
+
+        <!-- Last Name Column -->
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef> Nazwisko </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
+        </ng-container>
+
+        <!-- Policy Value Column -->
+        <ng-container matColumnDef="policyValue">
+          <mat-header-cell *matHeaderCellDef> Wartość polisy </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.policyValue}} </mat-cell>
+        </ng-container>
+
+        <!-- Start Date Column -->
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef> Data rozpoczęcia </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.startDate}} </mat-cell>
+        </ng-container>
+
+        <!-- End Date Column -->
+        <ng-container matColumnDef="endDate">
+          <mat-header-cell *matHeaderCellDef> Data zakończenia </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.endDate}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  }
 </div>
