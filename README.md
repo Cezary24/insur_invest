@@ -6,12 +6,7 @@ Polis Reader is an application designed to automate the process of reading insur
 
 - [Features](#features)
 - [Requirements](#requirements)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+- [Authors](#authors)
 
 ## Features
 
