@@ -106,9 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
-]
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
