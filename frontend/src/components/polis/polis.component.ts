@@ -19,7 +19,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     HttpClientModule  ,
     MatCardModule,MatTableModule,
     EditPolisyDialogComponent,
@@ -32,19 +32,19 @@ export class PolisComponent {
   selectedFiles: File[] = [];
   policiesData: PolisResponse[] = [];
   displayedColumns: string[] = [
-    'pesel', 
-    'insuredFirstName', 
-    'insuredLastName', 
-    'amount', 
-    'insuranceCompany', 
-    'policyCategory', 
+    'pesel',
+    'insuredFirstName',
+    'insuredLastName',
+    'amount',
+    'insuranceCompany',
+    'policyCategory',
     'actions'
   ];
   dataSource = new MatTableDataSource<PolisResponse>([]);
 
-  constructor(private fb: FormBuilder, 
-    private http: HttpClient, 
-    private dialog: MatDialog, 
+  constructor(private fb: FormBuilder,
+    private http: HttpClient,
+    private dialog: MatDialog,
     private cdref:ChangeDetectorRef) {
     this.polisForm = this.fb.group({});
   }
@@ -59,7 +59,7 @@ export class PolisComponent {
     }
 
     const dialogRef = this.dialog.open(SpinnerComponent, {
-      disableClose: true, 
+      disableClose: true,
       panelClass: 'spinner-dialog'
     });
 
@@ -75,21 +75,21 @@ export class PolisComponent {
           insuranceCompany: processedJson["marka towarzystwa ubezpieczeniowego"],
           policyCategory: processedJson["kategoria polisy"]
         };
-        
+
         this.dataSource.data = [...this.dataSource.data, response];
         console.log(this.dataSource.data);
       } catch (error) {
         console.error(`Error processing file ${file.name}:`, error);
       }
     }
-    dialogRef.close(); 
+    dialogRef.close();
   }
 
   private async processFile(file: File): Promise<any> {
     const formData = new FormData();
     formData.append('name', "nazwa");
     formData.append('file', file);
-    const url = 'http://127.0.0.1:8000/polis/';
+    const url = 'http://localhost/api/polis/';
     return this.http.post<any>(url, formData).toPromise();
   }
 
@@ -97,7 +97,7 @@ export class PolisComponent {
   onEdit(element: PolisResponse): void {
     const dialogRef = this.dialog.open(EditPolisyDialogComponent, {
       width: '400px',
-      data: { element: element }, 
+      data: { element: element },
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
