@@ -1,0 +1,50 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - DJANGO_SETTINGS_MODULE=investpolis.settings
+      - DJANGO_SECRET_KEY=secret-key-here
+      - DJANGO_DEBUG=0
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+      - sqlite_db:/app/db
+    expose:
+      - "8000"
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - app_network
+
+volumes:
+  static_volume:
+  media_volume:
+  sqlite_db:
+
+networks:
+  app_network:
+    driver: bridge

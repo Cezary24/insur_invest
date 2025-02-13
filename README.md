@@ -15,6 +15,14 @@ Polis Reader is an application designed to automate the process of reading insur
 - **JSON Output:** Converts extracted data into a structured JSON format.
 - **Efficiency:** Helps insurance agents reduce manual data entry and error rates.
 
+## Instalation
+
+```bash
+chmod +x init-letsencrypt.sh
+./init-letsencrypt.sh
+docker-compose up -d
+```
+
 ## Requirements
 
 - **Programming Language:** 
